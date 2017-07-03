@@ -11,6 +11,14 @@ public class Metodos {
 
     Scanner scan = new Scanner(System.in);
 
+    public static void limparTela() {
+        System.out.println("Limpando tela");
+        for (int i = 0; i != 50; ++i) {
+            System.out.println("");
+        }
+        System.out.println("Tela limpa");
+    }
+
     public void Menuprincipal() {
 
         System.out.println("=======================================");
@@ -39,7 +47,7 @@ public class Metodos {
 
     }
 
-    public void cadastroCompetidor(ArrayList<Competidores> listaCompetidores,int codCom, String nome, float ponto) {
+    public void cadastroCompetidor(ArrayList<Competidores> listaCompetidores, int codCom, String nome, float ponto) {
         Metodos cadastrocliente = new Metodos();
         //Carrega os clientes do arquivo pra lista
         listaCompetidores = ControleKart.leituramentacaoArquivo(listaCompetidores, enderecoCorredor);

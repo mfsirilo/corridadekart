@@ -8,6 +8,7 @@ public class Competidores {
     private int codCom;
     private String nome;
     private float ponto;
+    Competidores (){}
 
     public Competidores(int codCom, String nome, float ponto) {
         this.codCom = codCom;
