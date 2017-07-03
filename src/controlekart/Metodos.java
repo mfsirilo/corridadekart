@@ -17,8 +17,8 @@ public class Metodos {
         System.out.println("Menu principal ");
         System.out.println("=======================================");
         System.out.println("Informe uma opçcão de acordo com o Menu:");
-        System.out.println("Digite 1 para Clientes");
-        System.out.println("Digite 2 para Voos");
+        System.out.println("Digite 1 para Competidores");
+        System.out.println("Digite 2 para Corridas");
         System.out.println("Digite 3 para Relatórios");
         System.out.println("");
         System.out.println("Digite 0 para sair");
@@ -28,39 +28,32 @@ public class Metodos {
 
     public void MenuCorredor() {
         System.out.println("=======================================");
-        System.out.println("Menu clientes ");
+        System.out.println("Menu Competidores ");
         System.out.println("=======================================");
-        System.out.println("Digite 1 para cadastrar novo cliente");
-        System.out.println("Digite 2 para excluir cliente");
-        System.out.println("Digite 3 para cadastrar voo do cliente");
-        System.out.println("Digite 4 para excluir voo do cliente");
-        System.out.println("Digite 5 para imprimir TODOS os clientes");
+        System.out.println("Digite 1 para cadastrar novo Competidor");
+        System.out.println("Digite 2 para excluir Competidor");
+        System.out.println("Digite 3 para imprimir TODOS os Competidores");
         System.out.println("");
         System.out.println("Digite 0 para voltar ao Menu Principal");
         System.out.println("");
 
     }
 
-    public void cadastroCliente(ArrayList<Competidores> listaCompetidoreses, String nome) {
+    public void cadastroCompetidor(ArrayList<Competidores> listaCompetidores,int codCom, String nome, float ponto) {
         Metodos cadastrocliente = new Metodos();
         //Carrega os clientes do arquivo pra lista
-        listaCompetidoreses = ControleKart.leituramentoArquivo(listaCompetidoreses, endere);
+        listaCompetidores = ControleKart.leituramentacaoArquivo(listaCompetidores, enderecoCorredor);
 
-        Clientes cliente = new Clientes(codC, nome, sexo, cpf, categoria, CodConjuge);
-        if (listaclientes.size() > 0) {
-            int ultimocliente = listaclientes.get(listaclientes.size() - 1).getCodCli();
-            cliente.setCodCli(ultimocliente + 1);//parte do codigo que seta 
-            listaclientes.add(cliente);
-            ControledeMilhagem.gravamentoArquivo(listaclientes, enderecoCli);
-
-            cliente = listaclientes.get(codC);
-            codC++;
+        Competidores competidor = new Competidores(codCom, nome, ponto);
+        if (listaCompetidores.size() > 0) {
+            int ultimocliente = listaCompetidores.get(listaCompetidores.size() - 1).getCodCom();
+            competidor.setCodCom(ultimocliente + 1);//parte do codigo que seta 
+            listaCompetidores.add(competidor);
+            ControleKart.gravamentacaoArquivo(listaCompetidores, enderecoCorredor);
         } else {
-            listaclientes.add(cliente);
-            ControledeMilhagem.gravamentoArquivo(listaclientes, enderecoCli);
+            listaCompetidores.add(competidor);
+            ControleKart.gravamentacaoArquivo(listaCompetidores, enderecoCorredor);
 
-            cliente = listaclientes.get(codC);
-            codC++;
         }
     }
 

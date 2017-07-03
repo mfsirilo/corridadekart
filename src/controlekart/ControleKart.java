@@ -52,4 +52,8 @@ public class ControleKart {
 
     }
 
+    static ArrayList<Competidores> leituracaoArquivo(ArrayList<Competidores> listaCompetidoreses, String enderecoCorredor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
