@@ -5,7 +5,7 @@ import java.util.*;
 import java.text.*;
 
 public class ControleKart {
-    
+
     public static ArrayList gravamentacaoArquivo(ArrayList arraylist, String enderecoArquivo) {
         try {
             FileOutputStream saida = new FileOutputStream(enderecoArquivo);
@@ -34,6 +34,22 @@ public class ControleKart {
     }
 
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+
+        ArrayList<Competidores> listacompetidores = new ArrayList();
+        ArrayList<Classificacao> listacclassifica = new ArrayList();
+
+        listacclassifica = leituramentacaoArquivo(listacclassifica, Metodos.enderecoClassifica);
+        listacompetidores = leituramentacaoArquivo(listacompetidores, Metodos.enderecoCorredor);
+
+        Metodos metodos = new Metodos();
+
+        int opcao1, opcao2;
+        
+        metodos.Menuprincipal();
+        opcao1 = scan.nextInt();
+        scan.nextLine();
+
     }
-    
+
 }
