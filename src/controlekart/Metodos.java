@@ -23,11 +23,14 @@ public class Metodos {
         System.out.println("=======================================");
         System.out.println("Informe uma opçcão de acordo com o Menu:");
         System.out.println("Digite 1 para Corredores");
-        System.out.println("Digite 2 para Voos");
+        System.out.println("Digite 2 para Corrida");
         System.out.println("Digite 3 para Relatórios");
         System.out.println("");
         System.out.println("Digite 0 para sair");
         System.out.println("");
+    }
+    public void CadastroCorredor(){
+        
     }
 
 }
