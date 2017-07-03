@@ -34,6 +34,7 @@ public class ControleKart {
     }
 
     public static void main(String[] args) {
+        
     }
     
 }
