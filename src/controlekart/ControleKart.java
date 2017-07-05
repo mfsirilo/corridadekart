@@ -65,7 +65,8 @@ public class ControleKart {
                                 String nome;
                                 System.out.println("Informe o nome do competidor");
                                 nome = scan.nextLine();
-                                metodo.cadastroCompetidor(listacompetidores, nome, 0, 0);
+                                metodo.CadastroCompetidor(listacompetidores, nome, 0, 0);
+                                gravamentacaoArquivo(listacompetidores, Metodos.enderecoCompetidor);
                                 metodo.limparTela();
                                 break;
 
@@ -99,11 +100,11 @@ public class ControleKart {
                     metodo.Menuprincipal();
                     opcao1 = scan.nextLine();
                     break;
-                case "2":
-                    metodo.MenuCorrida();
-                    opcao2 = scan.nextLine();
-                    while (!(opcao2).equals("0")) {
-                        switch (opcao2) {
+//                case "2":
+//                    metodo.MenuCorrida();
+//                    opcao2 = scan.nextLine();
+//                    while (!(opcao2).equals("0")) {
+//                        switch (opcao2) {
 
 //                            case "1":
 //                                metodo.limparTela();
@@ -150,13 +151,13 @@ public class ControleKart {
 //                                System.out.println("");
 //                                break;
 
-                        }
-                        metodo.MenuCorrida();
-                        opcao2 = scan.nextLine();
-                    }
-                    metodo.Menuprincipal();
-                    opcao1 = scan.nextLine();
-                    break;
+//                        }
+//                        metodo.MenuCorrida();
+//                        opcao2 = scan.nextLine();
+//                    }
+//                    metodo.Menuprincipal();
+//                    opcao1 = scan.nextLine();
+//                    break;
             }
         }
     }

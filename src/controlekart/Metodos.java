@@ -48,7 +48,7 @@ public class Metodos {
 
     }
 
-    public void cadastroCompetidor(ArrayList<Competidor> listaCompetidores, String nome, float ponto, int numClassifica) {
+    public void CadastroCompetidor(ArrayList<Competidor> listaCompetidores, String nome, float ponto, int numClassifica) {
         listaCompetidores = ControleKart.leituramentacaoArquivo(listaCompetidores, enderecoCompetidor);
         Competidor competidor = new Competidor(codCom, nome, ponto, numClassifica);
         if (listaCompetidores.size() > 0) {
@@ -59,7 +59,6 @@ public class Metodos {
         } else {
             listaCompetidores.add(competidor);
             ControleKart.gravamentacaoArquivo(listaCompetidores, enderecoCompetidor);
-
         }
     }
 
@@ -115,6 +114,7 @@ public class Metodos {
             System.out.println("Nome: " + listacompetidor.get(indice).getNome());
             System.out.println("Pontos: " + listacompetidor.get(indice).getPonto());
         }
+        MenuCompetidor();
     }
 
     public void MenuCorrida() {
