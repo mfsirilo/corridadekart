@@ -4,20 +4,20 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-public class Metodos {
+public class Metodos implements Serializable {
 
     static String enderecoCompetidor = "/home/marcos/Documentos/pratica3/Trabalhos/Competidor.bin";
     static String enderecoClassifica = "/home/marcos/Documentos/pratica3/Trabalhos/Classifica.bin";
-    int codCom =0;
+    int codCom = 0;
 
     Scanner scan = new Scanner(System.in);
 
     public static void limparTela() {
-        System.out.println("Limpando tela");
+        System.out.println("");
         for (int i = 0; i != 50; ++i) {
             System.out.println("");
         }
-        System.out.println("Tela limpa");
+        System.out.println("");
     }
 
     public void Menuprincipal() {
@@ -84,7 +84,7 @@ public class Metodos {
     public static int RetornaIndiceCorredor(int codigo, ArrayList<Competidor> listacompetidor) {
         int index = 0;
         for (int i = 0; i < listacompetidor.size(); i++) {
-            if (listacompetidor.get(i).getCodCom()== codigo) {
+            if (listacompetidor.get(i).getCodCom() == codigo) {
                 index = i;
             }
         }
@@ -101,6 +101,9 @@ public class Metodos {
                 System.out.println("Codigo: " + corredor.getCodCom());
                 System.out.println("Nome: " + corredor.getNome());
                 System.out.println("Pontos: " + corredor.getPonto());
+                System.out.println("");
+                System.out.println("--------------------"
+                        + "");
             }
         } else {
             int indice = RetornaIndiceCorredor(codigo, listacompetidor);
@@ -114,7 +117,6 @@ public class Metodos {
             System.out.println("Nome: " + listacompetidor.get(indice).getNome());
             System.out.println("Pontos: " + listacompetidor.get(indice).getPonto());
         }
-        MenuCompetidor();
     }
 
     public void MenuCorrida() {
@@ -130,7 +132,7 @@ public class Metodos {
 
     }
 
-    public void CadastroCorrida(ArrayList<Classifica> listaclassifica,int CodCorrida, int CodCompetidor, String localCorrida, float pontosCompetidor ) {
+    public void CadastroCorrida(ArrayList<Classifica> listaclassifica, int CodCorrida, int CodCompetidor, String localCorrida, float pontosCompetidor) {
         Classifica clas = new Classifica(CodCorrida, CodCompetidor, localCorrida, pontosCompetidor);
         listaclassifica.add(clas);
         ControleKart.gravamentacaoArquivo(listaclassifica, enderecoClassifica);
@@ -146,9 +148,9 @@ public class Metodos {
             System.out.println("");
             System.out.println("Corrida n°: " + clas.getCodCorrida());
             System.out.println("Local: " + clas.getLocalCorrida());
-            for(Competidor comp:listacompetidor){
-                System.out.println("Competidor: "+ comp.getNome());
-                System.out.println("Classificou-se em: "+ comp.getNumClassificacao());
+            for (Competidor comp : listacompetidor) {
+                System.out.println("Competidor: " + comp.getNome());
+                System.out.println("Classificou-se em: " + comp.getNumClassificacao());
             }
             System.out.println("");
             System.out.println("---------------------------------");
@@ -163,7 +165,6 @@ public class Metodos {
 //        listavoo.remove(RetornaIndiceCorridas(codigo, listavoo));
 //        ControledeMilhagem.gravamentoArquivo(listavoo, enderecoVoo);
 //    }
-
 //    public void cadastroVoocliente(Clientes cliente, Voos voo, int data, int hora) {
 //        int codc, codv;
 //        codc = cliente.getCodCli();
@@ -178,7 +179,6 @@ public class Metodos {
 //        listaVooClientes = ControledeMilhagem.gravamentoArquivo(listaVooClientes, enderecoArquivo);
 //
 //    }
-
 //    public void excluirVoocliente(Clientes cliente) {
 //        String enderecoArquivo;
 //        enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
@@ -203,11 +203,10 @@ public class Metodos {
 //        }
 //        return index;
 //    }
-
     public static int RetornaIndiceCorridas(int codigo, ArrayList<Classifica> listaclassifica) {
         int index = 0;
         for (int i = 0; i < listaclassifica.size(); i++) {
-            if (listaclassifica.get(i).getCodCorrida()== codigo) {
+            if (listaclassifica.get(i).getCodCorrida() == codigo) {
                 index = i;
             }
         }
@@ -251,7 +250,6 @@ public class Metodos {
 //        System.out.println("");
 //
 //    }
-
     public Competidor RetornaCompetidor(ArrayList<Competidor> listacompetidor, int codigo) {
         listacompetidor = ControleKart.leituramentacaoArquivo(listacompetidor, enderecoCompetidor);
         int indice = RetornaIndiceCorredor(codigo, listacompetidor);
@@ -290,7 +288,6 @@ public class Metodos {
 //        System.out.println("");
 //        System.out.println("=======================================");
 //    }
-
 //    public void saldoMilhasFamiliar(ArrayList<Clientes> listaclientes, int codigo, ArrayList<Voos> listaVoos) {
 //        double distancia = 0, distanciaC = 0;
 //        Clientes cliente = new Clientes();
@@ -345,5 +342,4 @@ public class Metodos {
 //        }
 //
 //    }
-
 }

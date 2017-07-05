@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-public class ControleKart {
+public class ControleKart implements Serializable {
 
     public static ArrayList gravamentacaoArquivo(ArrayList arraylist, String enderecoArquivo) {
         try {
@@ -53,6 +53,7 @@ public class ControleKart {
                 "0")) {
             switch (opcao1) {
                 case "1":
+                    metodo.limparTela();
                     metodo.MenuCompetidor();
                     opcao2 = scan.nextLine();
                     while (!(opcao2).equals("0")) {
@@ -66,7 +67,6 @@ public class ControleKart {
                                 System.out.println("Informe o nome do competidor");
                                 nome = scan.nextLine();
                                 metodo.CadastroCompetidor(listacompetidores, nome, 0, 0);
-                                gravamentacaoArquivo(listacompetidores, Metodos.enderecoCompetidor);
                                 metodo.limparTela();
                                 break;
 
@@ -79,17 +79,18 @@ public class ControleKart {
                                 System.out.println("Informe o codigo do competidor ");
                                 codigo = scan.nextInt();
                                 scan.nextLine();
-                                metodo.ExcluirCorredor(listacompetidores,codigo);
+                                metodo.limparTela();
+                                metodo.ExcluirCorredor(listacompetidores, codigo);
                                 break;
                             case "3":
                                 metodo.limparTela();
-
                                 System.out.println("=======================================");
-                                System.out.println("Lista de todos os professores");
+                                System.out.println("Lista competidores");
                                 System.out.println("=======================================");
                                 System.out.println("Informe o codigo do competidor ou\n"
                                         + "Informe 99 para imprimir todos os competidores");
                                 codigo = scan.nextInt();
+                                scan.nextLine();
                                 metodo.ImprimeCorredor(listacompetidores, codigo);
                                 System.out.println("----------------------------------");
                                 break;
@@ -97,6 +98,7 @@ public class ControleKart {
                         metodo.MenuCompetidor();
                         opcao2 = scan.nextLine();
                     }
+                    metodo.limparTela();
                     metodo.Menuprincipal();
                     opcao1 = scan.nextLine();
                     break;
@@ -150,7 +152,6 @@ public class ControleKart {
 //                                System.out.println("=======================================");
 //                                System.out.println("");
 //                                break;
-
 //                        }
 //                        metodo.MenuCorrida();
 //                        opcao2 = scan.nextLine();

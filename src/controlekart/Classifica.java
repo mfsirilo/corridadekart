@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-public class Classifica {
+public class Classifica implements Serializable {
 
     private int CodCorrida;
     private int CodCompetidor;

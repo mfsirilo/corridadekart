@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-public class Competidor {
+public class Competidor implements Serializable {
 
     private int codCom;
     private String nome;
