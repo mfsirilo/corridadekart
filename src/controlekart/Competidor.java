@@ -4,16 +4,21 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-public class Competidores {
+public class Competidor {
+
     private int codCom;
     private String nome;
     private float ponto;
-    Competidores (){}
+    private int numClassificacao;
 
-    public Competidores(int codCom, String nome, float ponto) {
+    Competidor() {
+    }
+
+    public Competidor(int codCom, String nome, float ponto, int numClassificacao) {
         this.codCom = codCom;
         this.nome = nome;
         this.ponto = ponto;
+        this.numClassificacao = numClassificacao;
     }
 
     public int getCodCom() {
@@ -39,6 +44,14 @@ public class Competidores {
     public void setPonto(float ponto) {
         this.ponto = ponto;
     }
-    
-    
+
+    public int getNumClassificacao() {
+        return numClassificacao;
+    }
+
+    public void setNumClassificacao(int numClassificacao) {
+        this.numClassificacao = numClassificacao;
+    }
+
+
 }

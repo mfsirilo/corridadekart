@@ -6,8 +6,9 @@ import java.text.*;
 
 public class Metodos {
 
-    String enderecoCorredor = "/home/marcos/Documentos/pratica3/Trabalhos/Corredor.bin";
-    String enderecoClassifica = "/home/marcos/Documentos/pratica3/Trabalhos/Classifica.bin";
+    static String enderecoCompetidor = "/home/marcos/Documentos/pratica3/Trabalhos/Competidor.bin";
+    static String enderecoClassifica = "/home/marcos/Documentos/pratica3/Trabalhos/Classifica.bin";
+    int codCom =0;
 
     Scanner scan = new Scanner(System.in);
 
@@ -34,7 +35,7 @@ public class Metodos {
 
     }
 
-    public void MenuCorredor() {
+    public void MenuCompetidor() {
         System.out.println("=======================================");
         System.out.println("Menu Competidores ");
         System.out.println("=======================================");
@@ -47,138 +48,109 @@ public class Metodos {
 
     }
 
-    public void cadastroCompetidor(ArrayList<Competidores> listaCompetidores, int codCom, String nome, float ponto) {
-        Metodos cadastrocliente = new Metodos();
-        //Carrega os clientes do arquivo pra lista
-        listaCompetidores = ControleKart.leituramentacaoArquivo(listaCompetidores, enderecoCorredor);
-
-        Competidores competidor = new Competidores(codCom, nome, ponto);
+    public void cadastroCompetidor(ArrayList<Competidor> listaCompetidores, String nome, float ponto, int numClassifica) {
+        listaCompetidores = ControleKart.leituramentacaoArquivo(listaCompetidores, enderecoCompetidor);
+        Competidor competidor = new Competidor(codCom, nome, ponto, numClassifica);
         if (listaCompetidores.size() > 0) {
             int ultimocliente = listaCompetidores.get(listaCompetidores.size() - 1).getCodCom();
             competidor.setCodCom(ultimocliente + 1);//parte do codigo que seta 
             listaCompetidores.add(competidor);
-            ControleKart.gravamentacaoArquivo(listaCompetidores, enderecoCorredor);
+            ControleKart.gravamentacaoArquivo(listaCompetidores, enderecoCompetidor);
         } else {
             listaCompetidores.add(competidor);
-            ControleKart.gravamentacaoArquivo(listaCompetidores, enderecoCorredor);
+            ControleKart.gravamentacaoArquivo(listaCompetidores, enderecoCompetidor);
 
         }
     }
 
-    public static int ultimoCodigo(ArrayList<Clientes> listaclientes) {
-        listaclientes = ControledeMilhagem.leituramentoArquivo(listaclientes, enderecoCli);
-        int ultimocodigo = listaclientes.get(listaclientes.size() - 1).getCodCli();
+    public static int UltimoCodigo(ArrayList<Competidor> listacompetidor) {
+        listacompetidor = ControleKart.leituramentacaoArquivo(listacompetidor, enderecoCompetidor);
+        int ultimocodigo = listacompetidor.get(listacompetidor.size() - 1).getCodCom();
         return ultimocodigo;
     }
 
-    public void excluirCliente(ArrayList<Clientes> listaclientes) {
-        listaclientes = ControledeMilhagem.leituramentoArquivo(listaclientes, enderecoCli);
+    public void ExcluirCorredor(ArrayList<Competidor> listacompetidor, int codigo) {
+        listacompetidor = ControleKart.leituramentacaoArquivo(listacompetidor, enderecoCompetidor);
 
-        //Aqui busca o cliente pelo código e usa o método remove para tirar o cliente da lista
         System.out.println("=======================================");
-        System.out.println("Exclusão de cliente");
+        System.out.println("Exclusão de competidor cadastrado");
         System.out.println("=======================================");
 
-        System.out.println("Informe o codigo do cliente");
-        int codigo = scan.nextInt();
-        listaclientes.remove(retornaIndiceCliente(codigo, listaclientes));
-        listaclientes = ControledeMilhagem.gravamentoArquivo(listaclientes, enderecoCli);
-
+        System.out.println("Informe o codigo do competidor");
+        codigo = scan.nextInt();
+        listacompetidor.remove(RetornaIndiceCorredor(codigo, listacompetidor));
+        listacompetidor = ControleKart.gravamentacaoArquivo(listacompetidor, enderecoCompetidor);
     }
 
-    //Metodo que procurar o indide do cliente dentro do arraylist atrav�s do c�digo
-    public static int retornaIndiceCliente(int codigo, ArrayList<Clientes> listaclientes) {
+    public static int RetornaIndiceCorredor(int codigo, ArrayList<Competidor> listacompetidor) {
         int index = 0;
-        for (int i = 0; i < listaclientes.size(); i++) {
-            if (listaclientes.get(i).getCodCli() == codigo) {
+        for (int i = 0; i < listacompetidor.size(); i++) {
+            if (listacompetidor.get(i).getCodCom()== codigo) {
                 index = i;
             }
         }
         return index;
     }
 
-    public void imprimeCliente(ArrayList<Clientes> listaclientes, int codigo) {
-        String NomeConjuge;
-        listaclientes = ControledeMilhagem.leituramentoArquivo(listaclientes, enderecoCli);
-        int codC;
-        if (codigo == 0) {
+    public void ImprimeCorredor(ArrayList<Competidor> listacompetidor, int codigo) {
+        listacompetidor = ControleKart.leituramentacaoArquivo(listacompetidor, enderecoCompetidor);
+        if (codigo == 99) {
             System.out.println("=======================================");
             System.out.println("Lista de todos os clientes");
             System.out.println("=======================================");
-            for (Clientes cli : listaclientes) {
-                System.out.println("Codigo: " + cli.getCodCli());
-                System.out.println("Nome: " + cli.getNome());
-                System.out.println("Sexo: " + cli.getSexo());
-                System.out.println("CPF: " + cli.getCpf());
-                System.out.println("Categoria: " + cli.getCategoria());
-                System.out.println("Codigo do Conjuge: " + cli.getCodConjuge());
-                if (cli.getCodConjuge() == -1) {
-                    NomeConjuge = "Não informado";
-                } else {
-                    NomeConjuge = listaclientes.get(retornaIndiceCliente(cli.getCodConjuge(),
-                            listaclientes)).getNome();
-                }
-                System.out.println("Nome Conjuge: " + NomeConjuge);
-                System.out.println("----------------------------------");
+            for (Competidor corredor : listacompetidor) {
+                System.out.println("Codigo: " + corredor.getCodCom());
+                System.out.println("Nome: " + corredor.getNome());
+                System.out.println("Pontos: " + corredor.getPonto());
             }
         } else {
-            int indice = retornaIndiceCliente(codigo, listaclientes);
+            int indice = RetornaIndiceCorredor(codigo, listacompetidor);
             System.out.println("=======================================");
             System.out.println("Cadastro do cliente: ");
             System.out.println("=======================================");
 
             System.out.println("=======================================");
             System.out.println("Indice: " + indice);
-            System.out.println("Codigo: " + listaclientes.get(indice).getCodCli());
-            System.out.println("Nome: " + listaclientes.get(indice).getNome());
-            System.out.println("Sexo: " + listaclientes.get(indice).getSexo());
-            System.out.println("CPF: " + listaclientes.get(indice).getCpf());
-            System.out.println("Categoria: " + listaclientes.get(indice).getCategoria());
-            codC = listaclientes.get(indice).getCodConjuge();
-            System.out.println("Codigo do Conjuge: " + codC);
-            if (codC == -1) {
-                NomeConjuge = "Não informado";
-            } else {
-                NomeConjuge = listaclientes.get(retornaIndiceCliente(codC,
-                        listaclientes)).getNome();
-            }
-            System.out.println("Nome Conjuge: " + NomeConjuge);
-            System.out.println("=======================================");
+            System.out.println("Codigo: " + listacompetidor.get(indice).getCodCom());
+            System.out.println("Nome: " + listacompetidor.get(indice).getNome());
+            System.out.println("Pontos: " + listacompetidor.get(indice).getPonto());
         }
     }
 
-    public void menuVoo() {
+    public void MenuCorrida() {
         System.out.println("=======================================");
-        System.out.println("Menu voo ");
+        System.out.println("Menu Corrida ");
         System.out.println("=======================================");
-        System.out.println("Digite 1 para cadastro de Voo: ");
-        System.out.println("Digite 2 para imprimir todos Voos cadastrados: ");
-        System.out.println("Digite 3 para excluir de Voo: ");
+        System.out.println("Digite 1 para cadastro de corrida ");
+        System.out.println("Digite 2 para imprimir corridas ");
+        System.out.println("Digite 3 para excluir corridas: ");
         System.out.println("");
         System.out.println("Digite 0 para voltar ao Menu Principal");
         System.out.println("");
 
     }
 
-    public void cadastroVoo(ArrayList<Voos> listaVoos, int codV, String origem, String destino, float dist) {
-        /*O codigo de voos não é incremental, o codigo de voo é definido de acordo com a compania
-        *Escala cidades e etc. Então o usuário q vai digitar.
-         */
-        Voos voo = new Voos(codV, origem, destino, dist);
-        listaVoos.add(voo);
-        ControledeMilhagem.gravamentoArquivo(listaVoos, enderecoVoo);
+    public void CadastroCorrida(ArrayList<Classifica> listaclassifica,int CodCorrida, int CodCompetidor, String localCorrida, float pontosCompetidor ) {
+        Classifica clas = new Classifica(CodCorrida, CodCompetidor, localCorrida, pontosCompetidor);
+        listaclassifica.add(clas);
+        ControleKart.gravamentacaoArquivo(listaclassifica, enderecoClassifica);
     }
 
-    public void imprimeVoo(ArrayList<Voos> listaVoos) {
-        listaVoos = ControledeMilhagem.leituramentoArquivo(listaVoos, enderecoVoo);
+    public void ImprimeCorrida(ArrayList<Classifica> listaclassifica, ArrayList<Competidor> listacompetidor) {
+        listaclassifica = ControleKart.leituramentacaoArquivo(listaclassifica, enderecoClassifica);
+        listaclassifica = ControleKart.leituramentacaoArquivo(listacompetidor, enderecoCompetidor);
         System.out.println("=======================================");
         System.out.println("Lista de voos cadastrados");
         System.out.println("=======================================");
-        for (Voos voo : listaVoos) {
-            System.out.println("Codigo: " + voo.getCodigoVoo());
-            System.out.println("Origem: " + voo.getOrigem());
-            System.out.println("Destino: " + voo.getDestino());
-            System.out.println("Distância: " + voo.getDistancia());
+        for (Classifica clas : listaclassifica) {
+            System.out.println("");
+            System.out.println("Corrida n°: " + clas.getCodCorrida());
+            System.out.println("Local: " + clas.getLocalCorrida());
+            for(Competidor comp:listacompetidor){
+                System.out.println("Competidor: "+ comp.getNome());
+                System.out.println("Classificou-se em: "+ comp.getNumClassificacao());
+            }
+            System.out.println("");
             System.out.println("---------------------------------");
         }
         System.out.println("");
@@ -187,55 +159,55 @@ public class Metodos {
 
     }
 
-    public void excluirVoo(ArrayList<Voos> listavoo, int codigo) {
-        listavoo.remove(retornaIndiceVoos(codigo, listavoo));
-        ControledeMilhagem.gravamentoArquivo(listavoo, enderecoVoo);
-    }
+//    public void excluirVoo(ArrayList<Voos> listavoo, int codigo) {
+//        listavoo.remove(RetornaIndiceCorridas(codigo, listavoo));
+//        ControledeMilhagem.gravamentoArquivo(listavoo, enderecoVoo);
+//    }
 
-    public void cadastroVoocliente(Clientes cliente, Voos voo, int data, int hora) {
-        int codc, codv;
-        codc = cliente.getCodCli();
-        codv = voo.getCodigoVoo();
+//    public void cadastroVoocliente(Clientes cliente, Voos voo, int data, int hora) {
+//        int codc, codv;
+//        codc = cliente.getCodCli();
+//        codv = voo.getCodigoVoo();
+//
+//        Voocliente vooC = new Voocliente(codc, codv, data, hora);
+//        //funfa
+//        String enderecoArquivo;
+//        enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
+//        listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
+//        listaVooClientes.add(vooC);
+//        listaVooClientes = ControledeMilhagem.gravamentoArquivo(listaVooClientes, enderecoArquivo);
+//
+//    }
 
-        Voocliente vooC = new Voocliente(codc, codv, data, hora);
-        //funfa
-        String enderecoArquivo;
-        enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
-        listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
-        listaVooClientes.add(vooC);
-        listaVooClientes = ControledeMilhagem.gravamentoArquivo(listaVooClientes, enderecoArquivo);
+//    public void excluirVoocliente(Clientes cliente) {
+//        String enderecoArquivo;
+//        enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
+//        listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
+//        for (Voocliente vcli : listaVooClientes) {
+//            System.out.println("Codigo do Voo: " + vcli.getCodVoo());
+//        }
+//        System.out.println("Informe o codigo do voo a ser excluido: ");
+//        int codvoo = scan.nextInt();
+//        scan.nextLine();
+//        listaVooClientes.remove(retornaIndiceVoosClientes(codvoo, listaVooClientes));
+//        listaVooClientes = ControledeMilhagem.gravamentoArquivo(listaVooClientes, enderecoArquivo);
+//
+//    }
+//
+//    public static int retornaIndiceVoosClientes(int codVoo, ArrayList<Voocliente> listaVooClientes) {
+//        int index = 0;
+//        for (int i = 0; i < listaVooClientes.size(); i++) {
+//            if (listaVooClientes.get(i).getCodVoo() == codVoo) {
+//                index = i;
+//            }
+//        }
+//        return index;
+//    }
 
-    }
-
-    public void excluirVoocliente(Clientes cliente) {
-        String enderecoArquivo;
-        enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
-        listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
-        for (Voocliente vcli : listaVooClientes) {
-            System.out.println("Codigo do Voo: " + vcli.getCodVoo());
-        }
-        System.out.println("Informe o codigo do voo a ser excluido: ");
-        int codvoo = scan.nextInt();
-        scan.nextLine();
-        listaVooClientes.remove(retornaIndiceVoosClientes(codvoo, listaVooClientes));
-        listaVooClientes = ControledeMilhagem.gravamentoArquivo(listaVooClientes, enderecoArquivo);
-
-    }
-
-    public static int retornaIndiceVoosClientes(int codVoo, ArrayList<Voocliente> listaVooClientes) {
+    public static int RetornaIndiceCorridas(int codigo, ArrayList<Classifica> listaclassifica) {
         int index = 0;
-        for (int i = 0; i < listaVooClientes.size(); i++) {
-            if (listaVooClientes.get(i).getCodVoo() == codVoo) {
-                index = i;
-            }
-        }
-        return index;
-    }
-
-    public static int retornaIndiceVoos(int codigo, ArrayList<Voos> listaVoos) {
-        int index = 0;
-        for (int i = 0; i < listaVoos.size(); i++) {
-            if (listaVoos.get(i).getCodigoVoo() == codigo) {
+        for (int i = 0; i < listaclassifica.size(); i++) {
+            if (listaclassifica.get(i).getCodCorrida()== codigo) {
                 index = i;
             }
         }
@@ -255,123 +227,123 @@ public class Metodos {
         System.out.println("");
     }
 
-    public void historicoVooCliente(ArrayList<Clientes> listaclientes, int codigo) {
-        Clientes cliente = new Clientes();
-        cliente = retornaCliente(listaclientes, codigo);
-        String enderecoArquivo;
-        enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
-        listaVooClientes.clear();
-        listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
+//    public void historicoVooCliente(ArrayList<Clientes> listaclientes, int codigo) {
+//        Clientes cliente = new Clientes();
+//        cliente = RetornaCompetidor(listaclientes, codigo);
+//        String enderecoArquivo;
+//        enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
+//        listaVooClientes.clear();
+//        listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
+//
+//        System.out.println("=======================================");
+//        System.out.println("Histórico de Voos por cliente");
+//        System.out.println("=======================================");
+//
+//        for (Voocliente vcli : listaVooClientes) {
+//
+//            System.out.println("Codigo Voo: " + vcli.getCodVoo());
+//            System.out.println("Codigo Data: " + vcli.getData());
+//            System.out.println("Codigo Hora: " + vcli.getHora());
+//            System.out.println("---------------------------------");
+//        }
+//        System.out.println("");
+//        System.out.println("FIM DA LISTA");
+//        System.out.println("");
+//
+//    }
 
-        System.out.println("=======================================");
-        System.out.println("Histórico de Voos por cliente");
-        System.out.println("=======================================");
-
-        for (Voocliente vcli : listaVooClientes) {
-
-            System.out.println("Codigo Voo: " + vcli.getCodVoo());
-            System.out.println("Codigo Data: " + vcli.getData());
-            System.out.println("Codigo Hora: " + vcli.getHora());
-            System.out.println("---------------------------------");
-        }
-        System.out.println("");
-        System.out.println("FIM DA LISTA");
-        System.out.println("");
-
+    public Competidor RetornaCompetidor(ArrayList<Competidor> listacompetidor, int codigo) {
+        listacompetidor = ControleKart.leituramentacaoArquivo(listacompetidor, enderecoCompetidor);
+        int indice = RetornaIndiceCorredor(codigo, listacompetidor);
+        Competidor competidor = new Competidor();
+        competidor = listacompetidor.get(indice);
+        return competidor;
     }
 
-    public Clientes retornaCliente(ArrayList<Clientes> listaclientes, int codigo) {
-        listaclientes = ControledeMilhagem.leituramentoArquivo(listaclientes, enderecoCli);
-        int indice = retornaIndiceCliente(codigo, listaclientes);
-        Clientes cliente = new Clientes();
-        cliente = listaclientes.get(indice);
-        return cliente;
-    }
+//    public void saldoMilhasIndividual(ArrayList<Clientes> listaclientes, int codigo, ArrayList<Voos> listaVoos) {
+//        Clientes cliente = new Clientes();
+//        cliente = RetornaCompetidor(listaclientes, codigo);
+//        double distancia = 0;
+//        String enderecoArquivo;
+//        enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
+//        listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
+//        for (Voocliente vcli : listaVooClientes) {
+//            int codVoo = vcli.getCodVoo();
+//            distancia += listaVoos.get(RetornaIndiceCorridas(codVoo, listaVoos)).getDistancia();
+//        }
+//        int categoria = cliente.getCategoria();
+//        if (categoria == 0) {
+//            distancia = distancia * 0.621;
+//        }
+//        if (categoria == 1) {
+//            distancia = ((distancia * 0.621) * 1.5);
+//        }
+//        if (categoria == 2) {
+//            distancia = ((distancia * 0.621) * 2);
+//        }
+//        System.out.println("=======================================");
+//        System.out.println("Saldo de Milhas individual é:");
+//        System.out.println("=======================================");
+//        System.out.println("");
+//        System.out.println("O cliente " + cliente.getNome() + "\n");
+//        System.out.println("A milhagem acumulada é de: " + Math.ceil(distancia) + "\n");
+//        System.out.println("");
+//        System.out.println("=======================================");
+//    }
 
-    public void saldoMilhasIndividual(ArrayList<Clientes> listaclientes, int codigo, ArrayList<Voos> listaVoos) {
-        Clientes cliente = new Clientes();
-        cliente = retornaCliente(listaclientes, codigo);
-        double distancia = 0;
-        String enderecoArquivo;
-        enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
-        listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
-        for (Voocliente vcli : listaVooClientes) {
-            int codVoo = vcli.getCodVoo();
-            distancia += listaVoos.get(retornaIndiceVoos(codVoo, listaVoos)).getDistancia();
-        }
-        int categoria = cliente.getCategoria();
-        if (categoria == 0) {
-            distancia = distancia * 0.621;
-        }
-        if (categoria == 1) {
-            distancia = ((distancia * 0.621) * 1.5);
-        }
-        if (categoria == 2) {
-            distancia = ((distancia * 0.621) * 2);
-        }
-        System.out.println("=======================================");
-        System.out.println("Saldo de Milhas individual é:");
-        System.out.println("=======================================");
-        System.out.println("");
-        System.out.println("O cliente " + cliente.getNome() + "\n");
-        System.out.println("A milhagem acumulada é de: " + Math.ceil(distancia) + "\n");
-        System.out.println("");
-        System.out.println("=======================================");
-    }
-
-    public void saldoMilhasFamiliar(ArrayList<Clientes> listaclientes, int codigo, ArrayList<Voos> listaVoos) {
-        double distancia = 0, distanciaC = 0;
-        Clientes cliente = new Clientes();
-        Clientes conjuge = new Clientes();
-        cliente = retornaCliente(listaclientes, codigo);
-        if (cliente.getCodConjuge() == -1) {
-            saldoMilhasIndividual(listaclientes, codigo, listaVoos);
-        } else {
-            conjuge = retornaCliente(listaclientes, cliente.getCodConjuge());
-            String enderecoArquivo;
-            enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
-            listaVooClientes.clear();
-            listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
-            for (Voocliente vcli : listaVooClientes) {
-                int codVoo = vcli.getCodVoo();
-                distancia += listaVoos.get(retornaIndiceVoos(codVoo, listaVoos)).getDistancia();
-                int categoria = cliente.getCategoria();
-                if (categoria == 0) {
-                    distancia = distancia * 0.621;
-                }
-                if (categoria == 1) {
-                    distancia = (distancia * 0.621) * 1.5;
-                }
-                if (categoria == 2) {
-                    distancia = (distancia * 0.621) * 2;
-                }
-            }
-            String enderecoArquivoC = "D:\\Facul\\ControleMilhagem\\" + conjuge.getNome() + conjuge.getCodCli() + ".bin";
-            listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivoC);
-            for (Voocliente vCon : listaVooClientes) {
-                int codVooC = vCon.getCodVoo();
-                distanciaC += listaVoos.get(retornaIndiceVoos(codVooC, listaVoos)).getDistancia();
-                int categoriaC = conjuge.getCategoria();
-                if (categoriaC == 0) {
-                    distanciaC = distanciaC * 0.621;
-                }
-                if (categoriaC == 1) {
-                    distanciaC = (distanciaC * 0.621) * 1.5;
-                }
-                if (categoriaC == 2) {
-                    distanciaC = (distanciaC * 0.621) * 2;
-                }
-            }
-            //System.out.println("Distancia Cliente -> " + Math.ceil(distancia));
-            //System.out.println("Distancia conjuge -> " + Math.ceil(distanciaC));
-            System.out.println("=======================================");
-            System.out.println("Saldo de Milhas familiar");
-            System.out.println("=======================================");
-
-            System.out.println("A soma da milhagem familiar é: " + Math.ceil(distancia + distanciaC));
-            System.out.println("");
-        }
-
-    }
+//    public void saldoMilhasFamiliar(ArrayList<Clientes> listaclientes, int codigo, ArrayList<Voos> listaVoos) {
+//        double distancia = 0, distanciaC = 0;
+//        Clientes cliente = new Clientes();
+//        Clientes conjuge = new Clientes();
+//        cliente = RetornaCompetidor(listaclientes, codigo);
+//        if (cliente.getCodConjuge() == -1) {
+//            saldoMilhasIndividual(listaclientes, codigo, listaVoos);
+//        } else {
+//            conjuge = RetornaCompetidor(listaclientes, cliente.getCodConjuge());
+//            String enderecoArquivo;
+//            enderecoArquivo = "D:\\Facul\\ControleMilhagem\\" + cliente.getNome() + cliente.getCodCli() + ".bin";
+//            listaVooClientes.clear();
+//            listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivo);
+//            for (Voocliente vcli : listaVooClientes) {
+//                int codVoo = vcli.getCodVoo();
+//                distancia += listaVoos.get(RetornaIndiceCorridas(codVoo, listaVoos)).getDistancia();
+//                int categoria = cliente.getCategoria();
+//                if (categoria == 0) {
+//                    distancia = distancia * 0.621;
+//                }
+//                if (categoria == 1) {
+//                    distancia = (distancia * 0.621) * 1.5;
+//                }
+//                if (categoria == 2) {
+//                    distancia = (distancia * 0.621) * 2;
+//                }
+//            }
+//            String enderecoArquivoC = "D:\\Facul\\ControleMilhagem\\" + conjuge.getNome() + conjuge.getCodCli() + ".bin";
+//            listaVooClientes = ControledeMilhagem.leituramentoArquivo(listaVooClientes, enderecoArquivoC);
+//            for (Voocliente vCon : listaVooClientes) {
+//                int codVooC = vCon.getCodVoo();
+//                distanciaC += listaVoos.get(RetornaIndiceCorridas(codVooC, listaVoos)).getDistancia();
+//                int categoriaC = conjuge.getCategoria();
+//                if (categoriaC == 0) {
+//                    distanciaC = distanciaC * 0.621;
+//                }
+//                if (categoriaC == 1) {
+//                    distanciaC = (distanciaC * 0.621) * 1.5;
+//                }
+//                if (categoriaC == 2) {
+//                    distanciaC = (distanciaC * 0.621) * 2;
+//                }
+//            }
+//            //System.out.println("Distancia Cliente -> " + Math.ceil(distancia));
+//            //System.out.println("Distancia conjuge -> " + Math.ceil(distanciaC));
+//            System.out.println("=======================================");
+//            System.out.println("Saldo de Milhas familiar");
+//            System.out.println("=======================================");
+//
+//            System.out.println("A soma da milhagem familiar é: " + Math.ceil(distancia + distanciaC));
+//            System.out.println("");
+//        }
+//
+//    }
 
 }
