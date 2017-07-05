@@ -10,15 +10,19 @@ public class Competidor implements Serializable {
     private String nome;
     private float ponto;
     private int numClassificacao;
+    private int tempo;
+
+   
 
     Competidor() {
     }
 
-    public Competidor(int codCom, String nome, float ponto, int numClassificacao) {
+    public Competidor(int codCom, String nome, float ponto, int numClassificacao, int tempo) {
         this.codCom = codCom;
         this.nome = nome;
         this.ponto = ponto;
         this.numClassificacao = numClassificacao;
+        this.tempo = tempo;
     }
 
     public int getCodCom() {
@@ -51,6 +55,13 @@ public class Competidor implements Serializable {
 
     public void setNumClassificacao(int numClassificacao) {
         this.numClassificacao = numClassificacao;
+    }
+     public int getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(int tempo) {
+        this.tempo = tempo;
     }
 
 
