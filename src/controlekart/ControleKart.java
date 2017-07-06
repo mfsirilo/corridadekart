@@ -38,7 +38,9 @@ public class ControleKart implements Serializable {
 
         ArrayList<Competidor> listacompetidores = new ArrayList();
         ArrayList<Classifica> listacclassifica = new ArrayList();
-
+        
+        Competidor[] competidores = new Competidor[5];
+        
         listacclassifica = leituramentacaoArquivo(listacclassifica, Metodos.enderecoClassifica);
         listacompetidores = leituramentacaoArquivo(listacompetidores, Metodos.enderecoCompetidor);
 
@@ -118,12 +120,20 @@ public class ControleKart implements Serializable {
                                 scan.nextLine();
                                 System.out.println("Informe o local da corrida");
                                 String local = scan.nextLine();
-                                scan.nextLine();
-                                System.out.println("Informe o codigo do competidor");
-                                int CodCompetidor = scan.nextInt();
-                                scan.nextLine();
+                              
+                                System.out.println("Informe o codigo do competidor, por ordem de chegada:");
+                                for(int i = 0;i<competidores.length;i++){
+                                    int pontuacao = 10;
+                                    System.out.println("Informe o competidor na posição " + (i+1) +":");
+                                    int CodCompetidor = scan.nextInt();
+                                    scan.nextLine();
+                                    Competidor comp = new Competidor();
+                                    comp=Metodos.RetornaCompetidor(listacompetidores, CodCompetidor);
+                                    comp.setPonto(comp.getPonto()+pontuacao-i);
+                                    competidores[i]=comp;
+                                }
                                 listacclassifica = leituramentacaoArquivo(listacclassifica, Metodos.enderecoClassifica);
-                                metodo.CadastroCorrida(listacclassifica, CodCorrida, CodCompetidor, local, CodCorrida);
+                                metodo.CadastroCorrida(listacclassifica, CodCorrida, local, competidores[5]);
                                 //int CodCorrida, int CodCompetidor, String localCorrida, float pontosCompetid/or
                                 break;
 

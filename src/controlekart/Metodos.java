@@ -6,8 +6,12 @@ import java.text.*;
 
 public class Metodos implements Serializable {
 
-    static String enderecoCompetidor = "/home/marcos/Documentos/pratica3/Trabalhos/Competidor.bin";
-    static String enderecoClassifica = "/home/marcos/Documentos/pratica3/Trabalhos/Classifica.bin";
+  //  static String enderecoCompetidor = "/home/marcos/Documentos/pratica3/Trabalhos/Competidor.bin";
+  //  static String enderecoClassifica = "/home/marcos/Documentos/pratica3/Trabalhos/Classifica.bin";
+    static String enderecoCompetidor = "D:\\Facul\\Facul\\Pratica - III\\kart\\Competidor.bin";
+    static String enderecoClassifica = "D:\\Facul\\Facul\\Pratica - III\\kart\\Classifica.bin";
+    
+    
     int codCom = 0;
 
     Scanner scan = new Scanner(System.in);
@@ -52,8 +56,8 @@ public class Metodos implements Serializable {
         listaCompetidores = ControleKart.leituramentacaoArquivo(listaCompetidores, enderecoCompetidor);
         Competidor competidor = new Competidor(codCom, nome, ponto, numClassifica, tempo);
         if (listaCompetidores.size() > 0) {
-            int ultimocliente = listaCompetidores.get(listaCompetidores.size() - 1).getCodCom();
-            competidor.setCodCom(ultimocliente + 1);//parte do codigo que seta 
+            int ultimoCompetidor = listaCompetidores.get(listaCompetidores.size() - 1).getCodCom();
+            competidor.setCodCom(ultimoCompetidor + 1);//parte do codigo que seta 
             listaCompetidores.add(competidor);
             ControleKart.gravamentacaoArquivo(listaCompetidores, enderecoCompetidor);
         } else {
@@ -132,8 +136,8 @@ public class Metodos implements Serializable {
 
     }
 
-    public void CadastroCorrida(ArrayList<Classifica> listaclassifica, int CodCorrida, int CodCompetidor, String localCorrida, float pontosCompetidor) {
-        Classifica clas = new Classifica(CodCorrida, CodCompetidor, localCorrida, pontosCompetidor);
+    public void CadastroCorrida(ArrayList<Classifica> listaclassifica, int CodCorrida, String localCorrida, Competidor array) {
+        Classifica clas = new Classifica(CodCorrida, localCorrida, a1rray);
         listaclassifica.add(clas);
         ControleKart.gravamentacaoArquivo(listaclassifica, enderecoClassifica);
     }
@@ -250,7 +254,7 @@ public class Metodos implements Serializable {
 //        System.out.println("");
 //
 //    }
-    public Competidor RetornaCompetidor(ArrayList<Competidor> listacompetidor, int codigo) {
+    public static Competidor RetornaCompetidor(ArrayList<Competidor> listacompetidor, int codigo) {
         listacompetidor = ControleKart.leituramentacaoArquivo(listacompetidor, enderecoCompetidor);
         int indice = RetornaIndiceCorredor(codigo, listacompetidor);
         Competidor competidor = new Competidor();

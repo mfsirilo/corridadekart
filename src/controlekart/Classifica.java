@@ -9,16 +9,25 @@ public class Classifica implements Serializable {
     private int CodCorrida;
     private int CodCompetidor;
     private String localCorrida;
-    private float pontosCompetidor;
+    private Competidor Array;
+    //private float pontosCompetidor;
 
     Classifica() {
     }
 
-    public Classifica(int CodCorrida, int CodCompetidor, String localCorrida, float pontosCompetidor) {
+    public Classifica(int CodCorrida, String localCorrida, Competidor Array) {
         this.CodCorrida = CodCorrida;
-        this.CodCompetidor = CodCompetidor;
+        //this.CodCompetidor = CodCompetidor;
         this.localCorrida = localCorrida;
-        this.pontosCompetidor = pontosCompetidor;
+        this.Array = Array;
+    }
+
+    public Competidor getArray() {
+        return Array;
+    }
+
+    public void setArray(Competidor Array) {
+        this.Array = Array;
     }
 
     public int getCodCorrida() {
@@ -45,12 +54,12 @@ public class Classifica implements Serializable {
         this.localCorrida = localCorrida;
     }
 
-    public float getPontosCompetidor() {
-        return pontosCompetidor;
-    }
-
-    public void setPontosCompetidor(float pontosCompetidor) {
-        this.pontosCompetidor = pontosCompetidor;
-    }
+//    public float getPontosCompetidor() {
+//        return pontosCompetidor;
+//    }
+//
+//    public void setPontosCompetidor(float pontosCompetidor) {
+//        this.pontosCompetidor = pontosCompetidor;
+//    }
 
 }
