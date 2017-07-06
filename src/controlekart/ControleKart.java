@@ -66,7 +66,7 @@ public class ControleKart implements Serializable {
                                 String nome;
                                 System.out.println("Informe o nome do competidor");
                                 nome = scan.nextLine();
-                                metodo.CadastroCompetidor(listacompetidores, nome, 0, 0);
+                                metodo.CadastroCompetidor(listacompetidores, nome, 0, 0, 0);
                                 metodo.limparTela();
                                 break;
 
@@ -135,8 +135,8 @@ public class ControleKart implements Serializable {
                                 System.out.println("=======================================");
                                 System.out.println("Informe o codigo da chave a ser excluida");
                                 codChave = scan.nextInt();
-                                listachave = leituramentoArquivo(listachave, metodo.enderecoChave);
-                                metodo.ExluirChave(listachave, codChave);
+//                                listachave = leituramentoArquivo(listachave, metodo.enderecoChave);
+//                                metodo.ExluirChave(listachave, codChave);
                                 System.out.println("");
                                 System.out.println("=======================================");
                                 System.out.println("Chave excluida com sucesso");
@@ -150,7 +150,7 @@ public class ControleKart implements Serializable {
                                 System.out.println("Lista de chaves cadastradas");
                                 System.out.println("=======================================");
                                 System.out.println("");
-                                metodo.ImprimeChave(listachave);
+//                                metodo.ImprimeChave(listachave);
                                 System.out.println("");
                                 System.out.println("=======================================");
                                 System.out.println("FIM DA LISTA DE VOOS");

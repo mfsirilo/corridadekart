@@ -48,9 +48,9 @@ public class Metodos implements Serializable {
 
     }
 
-    public void CadastroCompetidor(ArrayList<Competidor> listaCompetidores, String nome, float ponto, int numClassifica) {
+    public void CadastroCompetidor(ArrayList<Competidor> listaCompetidores, String nome, float ponto, int numClassifica, int tempo) {
         listaCompetidores = ControleKart.leituramentacaoArquivo(listaCompetidores, enderecoCompetidor);
-        Competidor competidor = new Competidor(codCom, nome, ponto, numClassifica);
+        Competidor competidor = new Competidor(codCom, nome, ponto, numClassifica, tempo);
         if (listaCompetidores.size() > 0) {
             int ultimocliente = listaCompetidores.get(listaCompetidores.size() - 1).getCodCom();
             competidor.setCodCom(ultimocliente + 1);//parte do codigo que seta 
